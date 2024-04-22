@@ -46,11 +46,11 @@ class ProductService {
     }
   }
 
-  bool updateProduct(Producto producto) {
+  bool updateProduct(Producto producto, String name, double cantidad) {
     try {
       realm.write(() {
-        producto.productName = producto.productName;
-        producto.stock = producto.stock;
+        producto.productName = name;
+        producto.stock = cantidad;
       });
       return true;
     } on RealmException catch(e) {
@@ -60,7 +60,6 @@ class ProductService {
   }
 
   bool toggleProductStatus(Producto producto) {
-    print('toggle');
     try {
       realm.write(() {
         producto.done = !producto.done;

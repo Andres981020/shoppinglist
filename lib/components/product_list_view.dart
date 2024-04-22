@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:realm/realm.dart';
 import 'package:shoppinglist/components/product_view.dart';
 import 'package:shoppinglist/schemas/product.dart';
 
@@ -6,12 +7,15 @@ class ProductListView extends StatelessWidget {
   final List<Producto> products;
   final Function(Producto) onToggle;
   final Function(Producto) onDelete;
+  final Function(Producto, String, double) onUpdate;
+  final User u;
   const ProductListView(
-      {Key? key,
-      required this.products,
-      required this.onToggle,
-      required this.onDelete})
-      : super(key: key);
+      this.products,
+      this.onToggle,
+      this.onDelete,
+      this.onUpdate,
+      this.u,
+      {super.key});
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -27,7 +31,6 @@ class ProductListView extends StatelessWidget {
   Widget getItemBuilder(BuildContext context, int index) {
     
     Producto product = products[index];
-    print(product.productName + " nombre");
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -48,7 +51,7 @@ class ProductListView extends StatelessWidget {
             // Navigator.pushNamed(context, "producto");
             Navigator.push(
               context, 
-              MaterialPageRoute(builder: (context) => ProductView(product))
+              MaterialPageRoute(builder: (context) => ProductView(onUpdate,product, u))
               );
           },
         ),

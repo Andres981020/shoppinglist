@@ -7,23 +7,23 @@ import 'package:shoppinglist/services/user_service.dart';
 import './components/shopping_list_view.dart';
 import 'components/home.dart';
 
-const appId = "application-0-dhitq"; 
+const appId = "application-0-dhitq";
 
 void main() async {
   final realm.App atlasApp = realm.App(realm.AppConfiguration(appId));
-  final UserService userService = UserService(atlasApp); 
+  final UserService userService = UserService(atlasApp);
   realm.User usuario = await userService.loginUser("lil@gmail.com", "123456");
   final ProductService service = ProductService(usuario);
   runApp(MyApp(
-    service: service,
+    service,
+    usuario
   ));
 }
 
-
-
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key, required this.service}) : super(key: key);
+  const MyApp(this.service, this.u, {super.key});
   final ProductService service;
+  final realm.User u;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,12 +32,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.indigo,
       ),
       home: MyHomePage(
-        title: 'Shopping List',
-        service: service,
+        'Shopping List',
+        service,
+        u
       ),
       debugShowCheckedModeBanner: false,
       routes: getApplicationRoutes(),
-
     );
   }
 }

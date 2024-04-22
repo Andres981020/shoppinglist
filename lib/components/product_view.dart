@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:realm/realm.dart';
 import 'package:shoppinglist/schemas/product.dart';
+import 'package:shoppinglist/services/product_service.dart';
 
 class ProductView extends StatelessWidget {
+  final Function(Producto,String,double) onUpdate;
   final Producto producto;
-  const ProductView(this.producto, {super.key});
+  final User u;
+  const ProductView(this.onUpdate, this.producto, this.u, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controllerText = TextEditingController();
-
-    controllerText.text = "Hola";
-    return Scaffold(
+    final Producto p = Producto(producto.id, producto.ownerId, producto.productName, producto.stock);
+    final ProductService productoService = ProductService(u);
+    final controllerName = TextEditingController();
+    final controllerStock = TextEditingController();
+    return Scaffold( 
         appBar: AppBar(
           centerTitle: true,
           title: const Text('Propiedades del producto'),
         ),
         body: Container(
-
             // padding: const EdgeInsets.all(5),
             child: Column(
           children: [
@@ -37,6 +41,10 @@ class ProductView extends StatelessWidget {
                     children: [
                       TextFormField(
                         initialValue: producto.productName,
+                        // controller: controllerName,
+                        onChanged: (value) {
+                          p.productName = value;
+                        },
                       ),
                     ],
                   ),
@@ -60,6 +68,10 @@ class ProductView extends StatelessWidget {
                     children: [
                       TextFormField(
                         initialValue: producto.stock.toString(),
+                        onChanged: (value) {
+                          p.stock = double.parse(value);
+                        },
+                        // controller: controllerStock,
                       ),
                     ],
                   ),
@@ -70,9 +82,14 @@ class ProductView extends StatelessWidget {
               children: [
                 SizedBox(
                   width: 180,
-                  child: MaterialButton(onPressed: () {
-
-                  }),
+                  child: MaterialButton(
+                    color: Colors.blueAccent,
+                    child: const Text("Editar"),
+                    onPressed: () {
+                      onUpdate(producto, p.productName,p.stock);
+                      Navigator.pop(context);                    
+                  }
+                  ),
                 )
               ],
             )
