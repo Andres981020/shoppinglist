@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:realm/realm.dart';
-import 'package:shoppinglist/schemas/product.dart';
+import 'package:shoppinglist/schemas/item.dart';
 
-class ProductView extends StatelessWidget {
-  final Function(Producto, String, double) onUpdate;
-  final Producto producto;
+class ItemView extends StatelessWidget {
+  final Function(Item, String) onUpdate;
+  final Item item;
   final User u;
-  const ProductView(this.onUpdate, this.producto, this.u, {super.key});
+  const ItemView(this.onUpdate, this.item, this.u,{super.key});
 
   @override
   Widget build(BuildContext context) {
-    final Producto p = Producto(
-        producto.id, producto.ownerId, producto.productName, producto.stock);
+    final Item i = Item(item.id, item.summary, item.ownerId);
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -37,36 +36,9 @@ class ProductView extends StatelessWidget {
                   child: Column(
                     children: [
                       TextFormField(
-                        initialValue: producto.productName,
-                        // controller: controllerName,
+                        initialValue: item.summary,
                         onChanged: (value) {
-                          p.productName = value;
-                        },
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                const SizedBox(
-                  width: 150,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text('Stock del producto: '),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: 250,
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        initialValue: producto.stock.toString(),
-                        onChanged: (value) {
-                          p.stock = double.parse(value);
+                          i.summary = value;
                         },
                       ),
                     ],
@@ -83,7 +55,7 @@ class ProductView extends StatelessWidget {
                       color: Colors.blueAccent,
                       child: const Text("Editar"),
                       onPressed: () {
-                        onUpdate(producto, p.productName, p.stock);
+                        onUpdate(item, i.summary);
                         Navigator.pop(context);
                       }),
                 )

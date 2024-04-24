@@ -8,7 +8,7 @@ import 'package:shoppinglist/services/product_service.dart';
 class MyHomePage extends StatefulWidget {
   final String title;
   final ProductService service;
-  final User u;
+  final User u; 
   
   const MyHomePage(
     this.title, 
@@ -21,8 +21,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-  
   late realm.RealmResults<Producto> products;
   onAdd(String text) {
     debugPrint('Adding $text');
@@ -71,8 +69,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void loadProducts() {
     setState(() {
       products = widget.service.getProducts();
-      print(products.length);
-      print("Entro aqui");
     });
   }
 

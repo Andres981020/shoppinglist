@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class AddProductView extends StatelessWidget {
+class AddItemView extends StatelessWidget {
   final Function(String) onAdd;
   final TextEditingController textController = TextEditingController();
-  AddProductView({Key? key, required this.onAdd}) : super(key: key);
-  
+   AddItemView({Key? key, required this.onAdd}) : super(key: key);
+ 
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,7 +16,7 @@ class AddProductView extends StatelessWidget {
           TextField(
             controller: textController,
             style: const TextStyle(fontSize: 20),
-            decoration: const InputDecoration(hintText: 'Ingresar nombre del producto'),
+            decoration: const InputDecoration(hintText: 'Ingresar summary del item'),
           ),
           const SizedBox(height: 10),
           ElevatedButton(

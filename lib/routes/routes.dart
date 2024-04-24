@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoppinglist/components/home.dart';
 import 'package:realm/realm.dart' as realm;
+import 'package:shoppinglist/components/inicio.dart';
 import 'package:shoppinglist/components/product_view.dart';
 import 'package:shoppinglist/schemas/product.dart';
 import 'package:shoppinglist/services/product_service.dart';
@@ -18,5 +19,6 @@ Map<String, WidgetBuilder> getApplicationRoutes()  {
   return <String, WidgetBuilder>{
     // '/': (BuildContext context) => const MyHomePage(title: 'Titulo pagina', service: service),
     // 'producto': (BuildContext context) => const ProductView(producto: Producto()),
+    // 'inicio': (BuildContext context) => const Inicio(),
   }; 
 }

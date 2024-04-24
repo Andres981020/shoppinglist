@@ -6,7 +6,6 @@ import 'package:shoppinglist/schemas/product.dart';
 
 class ProductService {
   final User user;
-  // final Configuration _config = Configuration.local([Producto.schema], isReadOnly: false);
   late final Realm realm;
 
   ProductService(this.user) {
@@ -14,7 +13,6 @@ class ProductService {
   }
 
   Realm openRealm() {
-    // realm = Realm(_config);
 
     var realmConfig = Configuration.flexibleSync(user, [Producto.schema]);
     var realm = Realm(realmConfig);
