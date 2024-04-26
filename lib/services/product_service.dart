@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:realm/realm.dart';
 import 'package:shoppinglist/schemas/product.dart';
+import 'package:shoppinglist/schemas/item.dart';
 
 class ProductService {
   final User user;
@@ -14,7 +15,7 @@ class ProductService {
 
   Realm openRealm() {
 
-    var realmConfig = Configuration.flexibleSync(user, [Producto.schema]);
+    var realmConfig = Configuration.flexibleSync(user, [Item.schema, Producto.schema]);
     var realm = Realm(realmConfig);
     realm.subscriptions.update((mutableSubscriptions) {
       mutableSubscriptions.add(realm.all<Producto>());

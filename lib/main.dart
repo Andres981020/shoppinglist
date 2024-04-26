@@ -9,7 +9,6 @@ import 'package:shoppinglist/services/user_service.dart';
 const appId = "application-0-dhitq";
 
 void main() async {
-
   final realm.App atlasApp = realm.App(realm.AppConfiguration(appId));
   final UserService userService = UserService(atlasApp);
   realm.User usuario = await userService.loginUser("lil@gmail.com", "123456");

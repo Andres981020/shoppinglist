@@ -30,6 +30,10 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       debugPrint('Something went wrong while adding $text');
     }
+    final hola = products.changes.listen((event) { 
+      print(event);
+      print("Hola");
+    });
   }
 
   onToggle(Producto producto) {

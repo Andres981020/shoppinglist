@@ -57,6 +57,7 @@ class  _ItemHomeState extends State<ItemHome> {
     } else {
       debugPrint('Something went wrong while updating ${item.summary}');
     }
+    
   }
 
   @override

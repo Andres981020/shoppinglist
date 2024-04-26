@@ -2,8 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:realm/realm.dart';
 import 'package:shoppinglist/schemas/item.dart';
+import 'package:shoppinglist/schemas/product.dart';
 
-class ItemService {
+class ItemService with ChangeNotifier {
   final User user;
   late final Realm realm;
 
@@ -12,11 +13,12 @@ class ItemService {
   }
 
   openRealm() {
-    var realmConfig = Configuration.flexibleSync(user, [Item.schema]);
+    var realmConfig = Configuration.flexibleSync(user, [Item.schema, Producto.schema]);
     var realm = Realm(realmConfig);
     realm.subscriptions.update((mutableSubscriptions) {
       mutableSubscriptions.add(realm.all<Item>());
     });
+
     return realm;
   }
  
@@ -47,11 +49,13 @@ class ItemService {
       realm.write(() {
         item.summary = name;
       });
+      notifyListeners();
       return true;
     } on RealmException catch(e) {
       debugPrint(e.message);
       return false;
     }
+    
   }
 
   bool toggleItemStatus(Item item) { 
