@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:realm/realm.dart' as realm;
 import 'package:shoppinglist/components/inicio.dart';
 import 'package:shoppinglist/routes/routes.dart';
 import 'package:shoppinglist/services/item_service.dart';
 import 'package:shoppinglist/services/product_service.dart';
 import 'package:shoppinglist/services/user_service.dart';
+import 'package:shoppinglist/services/item_service.dart';
 
 const appId = "application-0-dhitq";
 
 void main() async {
   final realm.App atlasApp = realm.App(realm.AppConfiguration(appId));
   final UserService userService = UserService(atlasApp);
-  realm.User usuario = await userService.loginUser("lil@gmail.com", "123456");
+  realm.User usuario = await userService.loginUser("andres981020@gmail.com ", "123456");
   final ProductService service = ProductService(usuario);
   final ItemService itemService = ItemService(usuario);
 
-  runApp(MyApp(
-    service,
-    itemService,
-    usuario
+  runApp(ChangeNotifierProvider(
+    create: (_) => ItemService(usuario),
+    child: MyApp(service, itemService, usuario),
   ));
 }
 

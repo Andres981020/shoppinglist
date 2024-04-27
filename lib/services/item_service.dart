@@ -31,6 +31,11 @@ class ItemService with ChangeNotifier {
   RealmResults<Item> getItems() {
     return realm.all<Item>();
   }
+  getItems2() {
+    return realm.all<Item>().changes.listen((event) {
+      print("Entro12");
+    });
+  }
 
   bool addItem(String productName) {
     try {
